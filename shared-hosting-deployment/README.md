@@ -22,6 +22,6 @@
 
 4. Finally workflow file triggers the deploy.php script and it cleaned up the deployment
 
+> [!IMPORTANT]
 > **Note:** Double-check that the FTP credentials are correct and have the necessary permissions to upload and modify files on your hosting server.
-
 > **Note:** If your project depends on additional PHP extensions then make sure they are available in your hosting plan.
