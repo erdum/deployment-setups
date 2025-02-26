@@ -1,0 +1,18 @@
+[Unit]
+Description=Project Queue Process
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+Restart=always
+ExecStart=/usr/bin/php /var/www/html/project/artisan queue:work --tries=3 --sleep=10 --memory=512
+
+# Ensure the Laravel queue worker restarts on failure
+RestartSec=5
+
+# Specify the working directory
+WorkingDirectory=/var/www/html/project
+
+[Install]
+WantedBy=multi-user.target
