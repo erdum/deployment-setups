@@ -30,3 +30,6 @@
 	- Set your environment variables in your Elasticbeanstalk
 	- Use ACM to generate certificate for SSL
 	- Verify the domain name and put certificate ARN in .ebextension/instance_config.config file
+
+> [!IMPORTANTT]
+> **Note:** [useful resource](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html)
