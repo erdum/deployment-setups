@@ -5,6 +5,7 @@
 	2. Configurable scaling triggers
 	3. Automatic load balancer
 	4. Cost effective
+	5. Quickly share similar environment across the team, development and on production servers
 
 ## Prerequisites
 	Because your application will run on multiple instances, you have to make sure that some important should be centralized so every instance will have shared resources
