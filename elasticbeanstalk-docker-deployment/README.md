@@ -33,3 +33,6 @@
 
 > [!IMPORTANT]
 > **Note:** [useful resource](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html)
+
+> [!IMPORTANT]
+> **Note:** make sure to create .ebingore file otherwise Elasticbeanstalk will read .gitignore file and won't upload your .env file to the deployment and will ignore all the files included in the .gitignore file
