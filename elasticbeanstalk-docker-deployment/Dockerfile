@@ -18,21 +18,30 @@ RUN apt-get update && apt-get install -y \
   libonig-dev \
   libprotobuf-dev \
   protobuf-compiler \
+  imagemagick \
+  libmagickwand-dev \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install gd pdo_mysql zip xml mbstring bcmath
 
 # Install php-redis
 RUN pecl install redis && docker-php-ext-enable redis
 
+# Install php-imagick
+RUN pecl install imagick && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
+
+# Install gRPC (add cache validation)
+RUN if ! pecl list | grep grpc; then pecl install grpc > /dev/null 2>&1; fi \
+  && echo "extension=grpc.so" > /usr/local/etc/php/conf.d/grpc.ini
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Install gRPC silently
-RUN pecl install grpc > /dev/null 2>&1 && echo "extension=grpc.so" > /usr/local/etc/php/conf.d/grpc.ini
 
 # Copy Nginx configuration
 COPY .docker/nginx.conf /etc/nginx/nginx.conf
 COPY .docker/default.conf /etc/nginx/sites-available/default
+
+# Copy the Supervisor configuration for queue workers
+COPY .docker/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
 
 # Copy the application files to the container
 COPY . /var/www/html/
@@ -41,4 +50,4 @@ COPY . /var/www/html/
 EXPOSE 80
 
 # Start services
-CMD service nginx start && php-fpm
+CMD service nginx start && php-fpm && supervisord -c /etc/supervisor/supervisord.conf

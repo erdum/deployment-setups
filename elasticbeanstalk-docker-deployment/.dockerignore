@@ -1,6 +1,6 @@
 /node_modules
 /vendor
 /storage/logs
+.env
 .git
-Dockerfile
-.env.local
+firebase_credentials.json
