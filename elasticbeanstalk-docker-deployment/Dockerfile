@@ -33,6 +33,9 @@ RUN pecl install imagick && echo "extension=imagick.so" > /usr/local/etc/php/con
 RUN if ! pecl list | grep grpc; then pecl install grpc > /dev/null 2>&1; fi \
   && echo "extension=grpc.so" > /usr/local/etc/php/conf.d/grpc.ini
 
+# Set PHP upload limits
+RUN echo "upload_max_filesize = 100M\npost_max_size = 100M" > /usr/local/etc/php/conf.d/uploads.ini
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
